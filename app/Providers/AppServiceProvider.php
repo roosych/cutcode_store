@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
         Model::preventLazyLoading(!app()->isProduction());
         Model::preventsSilentlyDiscardingAttributes(!app()->isProduction());
 
-        DB::whenQueryingForLongerThan(500, function (Connection $connection) {
+        DB::whenQueryingForLongerThan(10000, function (Connection $connection) {
             logger()
                 ->channel('telegram')
                 ->debug('whenQueryingForLongerThan:' .$connection->query()->toSql());
