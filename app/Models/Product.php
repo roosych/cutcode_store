@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\Models\HasSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
     use HasFactory;
+    use HasSlug;
 
     protected $fillable = [
         'title',
@@ -16,15 +18,7 @@ class Product extends Model
         'brand_id',
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        // в момент создания продукта будет генерироваться слаг (если слага на данный момент нету)
-        static::creating(function(Product $product){
-           $product->slug = $product->slug ?? str($product->title)->slug();
-        });
-    }
+    // т.к. в трейте переименовали на bootHasSlug метод boot() свободен,  если понадобится можно использовать
 
     public function brand()
     {

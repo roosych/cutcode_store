@@ -10,6 +10,22 @@
                 <!-- Section heading -->
                 <h2 class="text-lg lg:text-[42px] font-black">Наши преимущества</h2>
 
+                @auth()
+                    <form
+                        action="{{route('logout')}}"
+                        method="POST"
+                    >
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit">Выйти</button>
+                    </form>
+                @endauth
+
+                @guest()
+                    guest
+                @endguest
+
                 <!-- Advantages -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mt-8">
                     <div class="flex flex-col items-center gap-2 py-6 md:py-8 px-4 md:px-6 rounded-xl bg-purple text-white text-center">

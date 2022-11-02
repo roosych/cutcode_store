@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Brand;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
@@ -19,7 +20,11 @@ class ProductFactory extends Factory
     {
         return [
             'title' => ucfirst(fake()->words('2', true)),
-            'thumbnail' => '',
+            'thumbnail' => fake()->file(
+                base_path('/tests/Fixtures/images/products'),
+                storage_path('/app/public/images/products'),
+                false
+            ),
             'price' => fake()->numberBetween(1000, 9999),
 
             // так как сиды брендов уже будут в бд, возьмем оттуда рандомное значение по айди
